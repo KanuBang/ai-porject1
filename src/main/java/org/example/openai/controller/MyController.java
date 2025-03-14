@@ -2,6 +2,7 @@ package org.example.openai.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.openai.config.AppConfig;
+import org.example.openai.dto.Answer;
 import org.example.openai.service.ChatService;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,5 +34,15 @@ public class MyController {
     @GetMapping("/chatjson") // RuquestParam 자동 바인디. 그러나 비추.
     public ChatResponse chatJson(String message){
         return chatService.chatJson(message);
+    }
+
+    @GetMapping("/chatobject")
+    public Answer chatobject(String message){
+        return chatService.chatObject(message);
+    }
+
+    @GetMapping("/iconplayer")
+    public Answer iconplayer(String country, String number){
+        return chatService.iconPlayer(country, number);
     }
 }

@@ -1,6 +1,7 @@
 package org.example.openai.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.openai.dto.Answer;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.stereotype.Service;
@@ -44,5 +45,20 @@ public class ChatService {
                 .user(message)
                 .call()
                 .chatResponse(); // json
+    }
+
+    public Answer chatObject(String message) {
+        return chatClient.prompt().user(message).call().entity(Answer.class);
+    }
+
+    private final String iconPlayerTemplate = "Answer for who is best player in {country}? " +
+            "Tell me {number} players"
+            +"you dont have to send me result as a list. just give me text";
+    public Answer iconPlayer(String country, String number){
+        return chatClient.prompt().user(userSpec -> userSpec.text(iconPlayerTemplate)
+                .param("country", country)
+                .param("number", number))
+                .call()
+                .entity(Answer.class);
     }
 }
