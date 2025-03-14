@@ -2,6 +2,7 @@ package org.example.openai.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -36,5 +37,12 @@ public class ChatService {
                 .getResult()
                 .getOutput()
                 .getText();
+    }
+
+    public ChatResponse chatJson(String message) {
+        return chatClient.prompt()
+                .user(message)
+                .call()
+                .chatResponse(); // json
     }
 }
